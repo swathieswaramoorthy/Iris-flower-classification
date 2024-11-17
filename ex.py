@@ -7,28 +7,25 @@ from scipy.stats import mode
 file_path = "Iris.csv"  
 data = pd.read_csv(file_path)
 
-X = data.iloc[:, :-1].values  # Features: Sepal and Petal measurements
+X = data.iloc[:, :-1].values 
 true_labels = data.iloc[:, -1].values  
 
-# Convert species names to numeric values for compatibility
+
 species_to_num = {species: idx for idx, species in enumerate(set(true_labels))}
 num_to_species = {idx: species for species, idx in species_to_num.items()}
 true_labels_numeric = [species_to_num[label] for label in true_labels]
 
-# Step 2: Standardize the features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Step 3: Apply K-Means Clustering
-n_clusters = 3  # Number of clusters (assuming 3 species)
+
+n_clusters = 3 
 kmeans = KMeans(n_clusters=n_clusters, random_state=42)
 kmeans.fit(X_scaled)
 
-# Cluster labels assigned by K-Means
+
 cluster_labels = kmeans.labels_
 
-# Step 4: Map Cluster Labels to True Labels
-# Use the mode of the true numeric labels in each cluster
 label_mapping = {}
 for cluster in range(n_clusters):
     mask = cluster_labels == cluster
