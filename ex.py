@@ -30,19 +30,18 @@ label_mapping = {}
 for cluster in range(n_clusters):
     mask = cluster_labels == cluster
     cluster_true_labels = [true_labels_numeric[i] for i in range(len(cluster_labels)) if mask[i]]
-    if cluster_true_labels:  # Ensure the cluster is not empty
+    if cluster_true_labels:  
         label_mapping[cluster] = mode(cluster_true_labels, keepdims=True).mode[0]
 
-# Map the predicted cluster labels to their corresponding true numeric labels
+
 predicted_labels_numeric = [label_mapping[cluster] for cluster in cluster_labels]
 
-# Convert predicted numeric labels back to species names
+
 predicted_labels = [num_to_species[label] for label in predicted_labels_numeric]
 
-# Step 5: Evaluate the Clustering with Accuracy
+
 accuracy = accuracy_score(true_labels, predicted_labels)
 print(f"K-Means Accuracy: {accuracy:.2f}")
 
-# Step 6: Optional - Print Cluster to Species Mapping
 mapped_species = {cluster: num_to_species[label] for cluster, label in label_mapping.items()}
 print("Cluster-to-Species Mapping:", mapped_species)
