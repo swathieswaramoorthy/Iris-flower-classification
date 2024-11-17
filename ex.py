@@ -4,13 +4,11 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import accuracy_score
 from scipy.stats import mode
 
-# Step 1: Load the dataset from the CSV file
 file_path = "Iris.csv"  
 data = pd.read_csv(file_path)
 
-# Assuming the last column is the target (species) and the rest are features
 X = data.iloc[:, :-1].values  # Features: Sepal and Petal measurements
-true_labels = data.iloc[:, -1].values  # True species labels
+true_labels = data.iloc[:, -1].values  
 
 # Convert species names to numeric values for compatibility
 species_to_num = {species: idx for idx, species in enumerate(set(true_labels))}
