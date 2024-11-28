@@ -6,7 +6,6 @@ from scipy.stats import mode
 
 file_path = "Iris.csv"  
 data = pd.read_csv(file_path)
-
 X = data.iloc[:, :-1].values 
 true_labels = data.iloc[:, -1].values  
 species_to_num = {species: idx for idx, species in enumerate(set(true_labels))}
